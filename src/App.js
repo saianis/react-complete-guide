@@ -5,25 +5,32 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      {name: 'Anish', age: 29},
-      {name: 'Chandra', age: 29},
-      {name: 'Gorthi', age: 28}
+      {id:' adsad', name: 'Anish', age: 29},
+      {id: 'dsadasd', name: 'Chandra', age: 29},
+      {id: 'qwqe', name: 'Gorthi', age: 28}
     ],
     showPersons: false
   }
 
-  nameChangeHandler = (event) => {
+  nameChangeHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {...this.state.persons[personIndex]};
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
     this.setState( {
-      persons: [
-        {name: 'Anish Chandra', age: 29},
-        {name: event.target.value, age: 24},
-        {name: 'Gorthi', age: 28}
-      ]
+      persons: persons
     })
   }
 
   deletePersonHandler = (personIndex) => {
-    const persons = this.state.persons;
+    const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({persons: persons});
   }
@@ -51,7 +58,9 @@ class App extends Component {
             return <Person 
             click={() => this.deletePersonHandler(index)}
             name={person.name} 
-            age={person.age} />
+            age={person.age} 
+            key={person.id}
+            changed={(event) => this.nameChangeHandler(event, person.id)}/>
           })}
       </div>
       );
@@ -62,7 +71,7 @@ class App extends Component {
         <h1> Hi, I am a React App</h1>
         <button 
         style = {style}
-        onClick={this.togglePersonsHandler}>Switch Name</button>
+        onClick={this.togglePersonsHandler}>Toggle Persons</button>
         {persons}
       </div>
     );
