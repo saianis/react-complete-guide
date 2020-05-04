@@ -8,17 +8,30 @@ class Persons extends Component {
   //   return state;
   // }
 
+
+  // Below hooks are changed in latest react versions
+
+  // componentWillReceiveProps(props) {
+  //   console.log('[persons.js] componentWillReceiveProps', props); 
+  // }
+
+  //   componentWillupdate() {
+  // }
+
 shouldComponentUpdate(nextProps, nextState) {
   console.log('[persons.js] shouldComponentUpdate');
   return true;
 }
 
-getSnapShotBeforeUpdate(prevProps, prevState) {
+getSnapshotBeforeUpdate(prevProps, prevState) {
   console.log('[persons.js] getSnapShotBeforeUpdate');
+  return { message: 'snapshot!'};
 }
 
-componentDidUpdate() {
+componentDidUpdate(prevProps, prevState, snapshot) {
   console.log('[persons.js] componentDidUpdate');
+  console.log(snapshot);
+  
 }
 
   render() {
