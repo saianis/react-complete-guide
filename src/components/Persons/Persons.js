@@ -34,6 +34,11 @@ componentDidUpdate(prevProps, prevState, snapshot) {
   
 }
 
+componentWillUnmount() {
+  console.log('[persons.js] componentWillUnmount');
+  
+}
+
   render() {
     return this.props.persons.map((person, index) => {
       return <Person
